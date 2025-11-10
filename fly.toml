@@ -1,4 +1,4 @@
-# fly.toml app configuration file generated for go4cars on 2025-11-10T09:41:48Z
+# fly.toml app configuration file generated for go4cars on 2025-11-10T13:21:33+02:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -7,8 +7,6 @@ app = 'go4cars'
 primary_region = 'iad'
 
 [build]
-  [build.args]
-    GO_VERSION = '1.25.4'
 
 [env]
   PORT = '8080'
@@ -25,4 +23,3 @@ primary_region = 'iad'
   memory = '1gb'
   cpu_kind = 'shared'
   cpus = 1
-  memory_mb = 1024

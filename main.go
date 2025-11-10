@@ -6,28 +6,35 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
 )
 
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
+	// Get PORT from environment variables
+	// Fly.io automatically sets the PORT environment variable
+	port := os.Getenv("PORT")
+	if port == "" {
+		// Fallback if PORT is not set
+		port = "8080"
 	}
 
-	env := os.Getenv("ENV")
-	var Port string
-	if env == "production" {
-		Port = "80"
-	} else {
-		Port = "8080"
-	}
-
+	// Initialize Gin router
 	router := gin.Default()
+
+	// Define a simple GET route for the root path
 	router.GET("/", func(c *gin.Context) {
-		c.String(http.StatusOK, "Hello, People!")
+		c.String(http.StatusOK, `
+	🚗  Go4Cars Server  🧑‍🤝‍🧑
+	=========================
+	Status: 🚀 Running
+	Visitors: 👤 42
+	Enjoy your ride! 🌟
+	`)
 	})
+	
 
-	router.Run(":" + Port)
-
+	// Start the server on the specified port
+	log.Printf("Starting server on port %s...", port)
+	if err := router.Run(":" + port); err != nil {
+		log.Fatalf("Failed to start server: %v", err)
+	}
 }
